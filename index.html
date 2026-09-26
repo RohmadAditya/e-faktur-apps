@@ -35,8 +35,6 @@
           <strong id="invoiceNumberPreview">INV-2026-0001</strong>
         </div>
       </section>
-      <p class="document-note"><strong>Catatan:</strong> Untuk freelancer yang belum berstatus PKP, dokumen ini digunakan sebagai invoice/kwitansi dan bukan Faktur Pajak resmi DJP.</p>
-
       <section class="form-section">
         <div class="section-title">
           <span class="section-number">01</span>
@@ -170,13 +168,8 @@
           </div>
           <textarea name="notes" rows="4" placeholder="Tulis catatan atau syarat pekerjaan..."></textarea>
           <label class="field payment-field">
-            <span>Syarat pembayaran</span>
-            <select name="paymentTerms">
-              <option>Cash / Tunai</option>
-              <option>Net 14 hari</option>
-              <option>Net 30 hari</option>
-              <option>Net 60 hari</option>
-            </select>
+            <span>Nomor rekening</span>
+            <input name="paymentTerms" type="text" value="BCA 555-509-3058 a/n ROHMAD ADITYA" />
           </label>
         </div>
         <div class="summary-box">
@@ -213,6 +206,6 @@
     </form>
     <p class="page-footer no-print">Invoice freelancer sederhana <span>•</span> Untuk kebutuhan administrasi internal</p>
   </main>
-  <script src="script.js"></script>
+  <script src="script.js?v=20260926-2"></script>
 </body>
 </html>

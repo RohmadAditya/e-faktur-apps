@@ -152,7 +152,7 @@ function buildPrintView() {
   meta.append(
     createPrintField('Nomor invoice', getText('invoiceNumber')),
     createPrintField('Tanggal terbit', formatDate(invoiceDate.value)),
-    createPrintField('Mata uang', currencyInput.options[currencyInput.selectedIndex].text),
+    createPrintField('Mata uang', 'Rupiah (IDR)'),
   );
   header.append(titleWrap, meta);
 
@@ -207,9 +207,9 @@ function buildPrintView() {
   notesText.textContent = getText('notes', 'Tidak ada catatan tambahan.');
   const terms = document.createElement('p');
   terms.className = 'print-payment-terms';
-  terms.innerHTML = '<span>Syarat pembayaran</span>';
+  terms.innerHTML = '<span>Nomor rekening</span>';
   const termsValue = document.createElement('strong');
-  termsValue.textContent = getText('paymentTerms');
+  termsValue.textContent = 'BCA 555-509-3058 a/n ROHMAD ADITYA';
   terms.appendChild(termsValue);
   notes.append(notesTitle, notesText, terms);
 
@@ -232,13 +232,9 @@ function buildPrintView() {
 
   const footer = document.createElement('footer');
   footer.className = 'print-footer';
-  const legal = document.createElement('p');
-  legal.textContent = includeTaxInput.checked
-    ? 'Dokumen invoice jasa yang diterbitkan secara elektronik.'
-    : 'Invoice/kwitansi jasa — bukan Faktur Pajak resmi DJP.';
   const thankYou = document.createElement('strong');
   thankYou.textContent = 'Terima kasih atas kepercayaan Anda.';
-  footer.append(legal, thankYou);
+  footer.append(thankYou);
 
   printView.append(header, parties, itemSection, closing, footer);
 }
