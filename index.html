@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Invoice sederhana untuk freelancer atau pekerja lepas dengan perhitungan opsional." />
+  <title>Invoice Freelancer | Form Invoice</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="page-shell">
+    <header class="app-header no-print">
+      <div class="brand-lockup">
+        <div class="brand-mark">IN</div>
+        <div>
+          <p class="eyebrow">APLIKASI INVOICE FREELANCER</p>
+          <h1>Invoice</h1>
+        </div>
+      </div>
+      <div class="header-status">
+        <span class="status-dot"></span>
+        Draft baru
+      </div>
+    </header>
+
+    <form id="invoiceForm" class="invoice-card">
+      <section class="invoice-heading">
+        <div>
+          <p class="eyebrow accent">INVOICE JASA</p>
+          <h2>Buat Invoice Baru</h2>
+          <p class="muted">Lengkapi data jasa atau pekerjaan sebelum mencetak invoice.</p>
+        </div>
+        <div class="invoice-badge">
+          <span>Nomor invoice</span>
+          <strong id="invoiceNumberPreview">INV-2026-0001</strong>
+        </div>
+      </section>
+      <p class="document-note"><strong>Catatan:</strong> Untuk freelancer yang belum berstatus PKP, dokumen ini digunakan sebagai invoice/kwitansi dan bukan Faktur Pajak resmi DJP.</p>
+
+      <section class="form-section">
+        <div class="section-title">
+          <span class="section-number">01</span>
+          <div>
+            <h3>Informasi Invoice</h3>
+            <p>Identitas utama dokumen transaksi</p>
+          </div>
+        </div>
+        <div class="form-grid three-columns">
+          <label class="field">
+            <span>Nomor invoice</span>
+            <input id="invoiceNumber" name="invoiceNumber" type="text" value="INV-2026-0001" required />
+          </label>
+          <label class="field">
+            <span>Tanggal invoice</span>
+            <input id="invoiceDate" name="invoiceDate" type="date" required />
+          </label>
+          <label class="field">
+            <span>Mata uang</span>
+            <select name="currency" aria-label="Mata uang">
+              <option value="IDR">Rupiah (IDR)</option>
+              <option value="USD">Dollar Amerika (USD)</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="form-section split-section">
+        <div class="section-title">
+          <span class="section-number">02</span>
+          <div>
+            <h3>Data Penjual & Klien</h3>
+            <p>Informasi freelancer dan pihak yang menggunakan jasa</p>
+          </div>
+        </div>
+        <div class="party-grid">
+          <div class="party-card seller-card">
+            <div class="party-heading">
+              <span class="party-icon">S</span>
+              <div>
+                <h4>Freelancer / Penjual</h4>
+                <p>Penyedia jasa perorangan</p>
+              </div>
+            </div>
+            <label class="field">
+              <span>Nama lengkap / nama usaha</span>
+              <input name="sellerName" type="text" placeholder="Nama Anda atau nama usaha" required />
+            </label>
+            <label class="field">
+              <span>NIK / NPWP <em>(opsional)</em></span>
+              <input name="sellerNpwp" type="text" placeholder="NIK atau NPWP Anda" inputmode="numeric" />
+            </label>
+            <label class="field">
+              <span>Alamat / kontak</span>
+              <textarea name="sellerAddress" rows="2" placeholder="Alamat, email, atau nomor telepon"></textarea>
+            </label>
+          </div>
+          <div class="party-card buyer-card">
+            <div class="party-heading">
+              <span class="party-icon">K</span>
+              <div>
+                <h4>Klien / Pembeli</h4>
+                <p>Penerima jasa atau pekerjaan</p>
+              </div>
+            </div>
+            <label class="field">
+              <span>Nama klien / perusahaan</span>
+              <input name="buyerName" type="text" placeholder="Nama klien atau perusahaan" required />
+            </label>
+            <label class="field">
+              <span>NPWP <em>(opsional)</em></span>
+              <input name="buyerNpwp" type="text" placeholder="NPWP klien (jika ada)" inputmode="numeric" />
+            </label>
+            <label class="field">
+              <span>Alamat / kontak</span>
+              <textarea name="buyerAddress" rows="2" placeholder="Alamat atau email klien"></textarea>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <div class="section-title section-title-with-action">
+          <div class="section-title-main">
+            <span class="section-number">03</span>
+            <div>
+              <h3>Detail Jasa / Pekerjaan</h3>
+              <p>Daftar jasa atau pekerjaan yang ditagihkan</p>
+            </div>
+          </div>
+          <button id="addItemBtn" class="button button-secondary no-print" type="button">
+            <span class="button-plus">+</span> Tambah item
+          </button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="items-table">
+            <thead>
+              <tr>
+                <th class="number-column">#</th>
+                <th>Nama jasa / pekerjaan</th>
+                <th class="quantity-column">Kuantitas</th>
+                <th class="price-column">Harga satuan</th>
+                <th class="amount-column">Jumlah</th>
+                <th class="action-column no-print"><span class="sr-only">Aksi</span></th>
+              </tr>
+            </thead>
+            <tbody id="itemsBody">
+              <tr class="item-row">
+                <td class="row-number">1</td>
+                <td><input class="item-description" type="text" placeholder="Contoh: Desain logo" required /></td>
+                <td><input class="item-quantity" type="number" min="0" step="0.01" value="1" aria-label="Kuantitas" required /></td>
+                <td><input class="item-price" type="number" min="0" step="100" value="0" aria-label="Harga satuan" required /></td>
+                <td class="item-amount">Rp 0</td>
+                <td class="action-column no-print"><button class="remove-item" type="button" aria-label="Hapus item">&times;</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-helper no-print">Tambahkan item lain jika invoice mencakup beberapa jasa atau pekerjaan.</p>
+      </section>
+
+      <section class="form-section totals-section">
+        <div class="notes-area">
+          <div class="section-title compact-title">
+            <span class="section-number">04</span>
+            <div>
+              <h3>Catatan</h3>
+              <p>Informasi tambahan (opsional)</p>
+            </div>
+          </div>
+          <textarea name="notes" rows="4" placeholder="Tulis catatan atau syarat pekerjaan..."></textarea>
+          <label class="field payment-field">
+            <span>Syarat pembayaran</span>
+            <select name="paymentTerms">
+              <option>Cash / Tunai</option>
+              <option>Net 14 hari</option>
+              <option>Net 30 hari</option>
+              <option>Net 60 hari</option>
+            </select>
+          </label>
+        </div>
+        <div class="summary-box">
+          <div class="summary-line">
+            <span>Subtotal jasa</span>
+            <strong id="subtotalValue">Rp 0</strong>
+          </div>
+          <div class="summary-line tax-line">
+            <label class="tax-toggle" for="includeTax">
+              <input id="includeTax" type="checkbox" />
+              <span>Kenakan PPN</span>
+            </label>
+            <label class="tax-rate-label" for="taxRate">
+              <input id="taxRate" type="number" min="0" max="100" step="0.01" value="11" disabled />%
+            </label>
+            <strong id="taxValue">Rp 0</strong>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="summary-line grand-total">
+            <span>Total tagihan</span>
+            <strong id="totalValue">Rp 0</strong>
+          </div>
+          <p class="summary-caption">PPN hanya diaktifkan jika Anda sudah terdaftar sebagai PKP.</p>
+        </div>
+      </section>
+
+      <footer class="invoice-footer no-print">
+        <p><span class="footer-lock">⌕</span> Data hanya tersimpan di browser Anda.</p>
+        <div class="footer-actions">
+          <button id="resetBtn" class="button button-ghost" type="button">Reset</button>
+          <button id="printBtn" class="button button-primary" type="button"><span>⌁</span> Cetak invoice</button>
+        </div>
+      </footer>
+    </form>
+    <p class="page-footer no-print">Invoice freelancer sederhana <span>•</span> Untuk kebutuhan administrasi internal</p>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
